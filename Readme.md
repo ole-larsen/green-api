@@ -7,3 +7,7 @@ This project is a simple HTML interface for interacting with the GREEN-API. It a
 - golang
 
 - javascript
+
+## build
+```
+go build -o green-api cmd/main.go
