@@ -102,7 +102,9 @@ func WithAddress(a string, aPtr *string) func(*Config) {
 			panic(fmt.Errorf("wrong a parameters"))
 		}
 
-		c.Host = addr[0]
+		if addr[0] != "localhost" {
+			c.Host = addr[0]
+		}
 
 		port, err := strconv.Atoi(addr[1])
 		if err != nil {
