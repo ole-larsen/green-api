@@ -1,4 +1,4 @@
-package httpserver
+package httpserver_test
 
 import (
 	"reflect"
@@ -6,6 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/ole-larsen/green-api/internal/httpserver"
 	"github.com/ole-larsen/green-api/internal/httpserver/router"
 )
 
@@ -17,14 +18,14 @@ func TestNewHttpServer(t *testing.T) {
 
 	tests := []struct {
 		name string
-		want *HTTPServer
+		want *httpserver.HTTPServer
 		args args
 	}{
 		{
 			name: "test defailt http server",
-			want: &HTTPServer{
-				host: "",
-				port: 0,
+			want: &httpserver.HTTPServer{
+				Host: "",
+				Port: 0,
 			},
 			args: args{
 				host: "localhost",
@@ -34,29 +35,29 @@ func TestNewHttpServer(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewHTTPServer(); !reflect.DeepEqual(got, tt.want) {
+			if got := httpserver.NewHTTPServer(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewHttpServer() = %v, want %v", got, tt.want)
 			}
 
-			s := NewHTTPServer()
+			s := httpserver.NewHTTPServer()
 
-			require.Equal(t, "", s.host)
-			require.Equal(t, 0, s.port)
-			require.Nil(t, s.router)
+			require.Equal(t, "", s.Host)
+			require.Equal(t, 0, s.Port)
+			require.Nil(t, s.Router)
 
 			s.SetHost(tt.args.host)
 			s.SetPort(tt.args.port)
 
-			require.Equal(t, tt.args.host, s.host)
-			require.Equal(t, tt.args.port, s.port)
+			require.Equal(t, tt.args.host, s.Host)
+			require.Equal(t, tt.args.port, s.Port)
 
-			require.Nil(t, s.router)
+			require.Nil(t, s.Router)
 
 			r := router.NewMux()
 
 			s.SetRouter(r)
 
-			require.NotNil(t, s.router)
+			require.NotNil(t, s.Router)
 		})
 	}
 }

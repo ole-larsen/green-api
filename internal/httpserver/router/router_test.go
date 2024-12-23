@@ -1,4 +1,4 @@
-package router
+package router_test
 
 import (
 	"bytes"
@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/ole-larsen/green-api/internal/httpserver/router"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -37,27 +38,26 @@ func testRequest(t *testing.T, ts *httptest.Server, method, path string, body io
 
 func TestNewRouter(t *testing.T) {
 	tests := []struct {
-		want *Mux
+		want *router.Mux
 		name string
 	}{
 		{
 			name: "create router",
-			want: &Mux{
+			want: &router.Mux{
 				Router: chi.NewRouter(),
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			router := NewMux()
-			require.NotNil(t, router.Router)
+			r := router.NewMux()
+			require.NotNil(t, r.Router)
 		})
 	}
 }
 
 func TestRouter(t *testing.T) {
-
-	ts := httptest.NewServer(NewMux().
+	ts := httptest.NewServer(router.NewMux().
 		SetMiddlewares().
 		SetHandlers().Router)
 	defer ts.Close()

@@ -11,9 +11,9 @@ import (
 )
 
 type HTTPServer struct {
-	router *router.Mux
-	host   string
-	port   int
+	Router *router.Mux
+	Host   string
+	Port   int
 }
 
 func NewHTTPServer() *HTTPServer {
@@ -21,38 +21,38 @@ func NewHTTPServer() *HTTPServer {
 }
 
 func (s *HTTPServer) SetHost(h string) *HTTPServer {
-	s.host = h
+	s.Host = h
 	return s
 }
 
 func (s *HTTPServer) SetPort(p int) *HTTPServer {
-	s.port = p
+	s.Port = p
 	return s
 }
 
 func (s *HTTPServer) SetRouter(r *router.Mux) *HTTPServer {
-	s.router = r
+	s.Router = r
 	return s
 }
 
 func (s *HTTPServer) GetHost() string {
-	return s.host // it can be ""
+	return s.Host // it can be ""
 }
 
 func (s *HTTPServer) GetPort() int {
-	return s.port // it can't be 0
+	return s.Port // it can't be 0
 }
 
 func (s *HTTPServer) GetRouter() *router.Mux {
-	return s.router
+	return s.Router
 }
 
 func (s *HTTPServer) ListenAndServe() error {
 	const defaultTimeout = 3
 
 	server := &http.Server{
-		Addr:              s.host + ":" + fmt.Sprintf("%d", s.port),
-		Handler:           s.router.Router,
+		Addr:              s.Host + ":" + fmt.Sprintf("%d", s.Port),
+		Handler:           s.Router.Router,
 		ReadHeaderTimeout: defaultTimeout * time.Second,
 	}
 

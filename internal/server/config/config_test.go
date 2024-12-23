@@ -30,7 +30,7 @@ func Test_NewConfig(t *testing.T) {
 
 			configPtr := fmt.Sprintf("%p", cfg)
 
-			assert.NotEqual(t, "", cfg.Host)
+			assert.NotEqual(t, "localhost", cfg.Host)
 			assert.NotEqual(t, "", cfg.Port)
 			assert.Equal(t, "", cfg.DSN)
 			assert.Equal(t, defaultSecret, cfg.Secret)
@@ -89,7 +89,7 @@ func Test_InitConfig(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cfg := config.InitConfig(tt.args.opts...)
-			assert.Equal(t, "localhost", cfg.Host)
+			assert.Equal(t, "", cfg.Host)
 			assert.Equal(t, 8080, cfg.Port)
 			assert.Equal(t, dsn, cfg.DSN)
 			assert.Equal(t, secret, cfg.Secret)
@@ -122,9 +122,15 @@ func Test_parseFlags(t *testing.T) {
 			assert.NotEmpty(t, flag.Lookup("s"))
 
 			// check default values
-			assert.Equal(t, *tt.want.APtr, (flag.Lookup("a").Value.(flag.Getter).Get().(string)))
-			assert.Equal(t, *tt.want.DPtr, (flag.Lookup("d").Value.(flag.Getter).Get().(string)))
-			assert.Equal(t, *tt.want.SPtr, (flag.Lookup("s").Value.(flag.Getter).Get().(string)))
+			aFlag, ok := flag.Lookup("a").Value.(flag.Getter).Get().(string)
+			require.True(t, ok)
+			dFlag, ok := flag.Lookup("d").Value.(flag.Getter).Get().(string)
+			require.True(t, ok)
+			sFlag, ok := flag.Lookup("s").Value.(flag.Getter).Get().(string)
+			require.True(t, ok)
+			assert.Equal(t, *tt.want.APtr, aFlag)
+			assert.Equal(t, *tt.want.DPtr, dFlag)
+			assert.Equal(t, *tt.want.SPtr, sFlag)
 		})
 	}
 }
@@ -152,7 +158,7 @@ func Test_withAddress(t *testing.T) {
 				a:    address,
 				aPtr: nil,
 			},
-			wantHost:  "localhost",
+			wantHost:  "",
 			wantPort:  8080,
 			wantPanic: false,
 		},
@@ -162,7 +168,7 @@ func Test_withAddress(t *testing.T) {
 				a:    "",
 				aPtr: &address,
 			},
-			wantHost:  "localhost",
+			wantHost:  "",
 			wantPort:  8080,
 			wantPanic: false,
 		},

@@ -1,4 +1,4 @@
-package middlewares
+package middlewares_test
 
 import (
 	"bytes"
@@ -13,6 +13,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/ole-larsen/green-api/internal/httpserver/middlewares"
 	"github.com/ole-larsen/green-api/internal/log"
 )
 
@@ -158,7 +159,7 @@ func TestGzipMiddleware_SendNotGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlain)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlain)),
 				body:            nil,
 			},
 			want: want{
@@ -176,7 +177,7 @@ func TestGzipMiddleware_SendNotGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlain)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlain)),
 				body:            nil,
 			},
 			want: want{
@@ -194,7 +195,7 @@ func TestGzipMiddleware_SendNotGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -212,7 +213,7 @@ func TestGzipMiddleware_SendNotGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -230,7 +231,7 @@ func TestGzipMiddleware_SendNotGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "",
 				contentType:     JSONContentType,
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -248,7 +249,7 @@ func TestGzipMiddleware_SendNotGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "",
 				contentType:     JSONContentType,
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -266,7 +267,7 @@ func TestGzipMiddleware_SendNotGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "",
 				contentType:     JSONContentType,
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
 				body:            bytes.NewBuffer([]byte(requestBody)),
 			},
 			want: want{
@@ -370,7 +371,7 @@ func TestGzipMiddleware_AcceptNotGzip(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlain)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlain)),
 				body:            nil,
 			},
 			want: want{
@@ -388,7 +389,7 @@ func TestGzipMiddleware_AcceptNotGzip(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlain)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlain)),
 				body:            nil,
 			},
 			want: want{
@@ -406,7 +407,7 @@ func TestGzipMiddleware_AcceptNotGzip(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -424,7 +425,7 @@ func TestGzipMiddleware_AcceptNotGzip(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -442,7 +443,7 @@ func TestGzipMiddleware_AcceptNotGzip(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -460,7 +461,7 @@ func TestGzipMiddleware_AcceptNotGzip(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -478,7 +479,7 @@ func TestGzipMiddleware_AcceptNotGzip(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
 				body:            bytes.NewBuffer([]byte(requestBody)),
 			},
 			want: want{
@@ -584,7 +585,7 @@ func TestGzipMiddleware_AcceptGZIP(t *testing.T) {
 				acceptEncoding:  "gzip",
 				contentEncoding: "",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
 				body:            buf,
 			},
 			want: want{
@@ -678,7 +679,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlain)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlain)),
 				body:            nil,
 			},
 			want: want{
@@ -696,7 +697,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlain)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlain)),
 				body:            nil,
 			},
 			want: want{
@@ -714,7 +715,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -732,7 +733,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "text/plain; charset=utf-8",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookPlainJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -750,7 +751,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -768,7 +769,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSON)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSON)),
 				body:            nil,
 			},
 			want: want{
@@ -786,7 +787,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
 				body:            bytes.NewBuffer([]byte(requestBody)),
 			},
 			want: want{
@@ -804,7 +805,7 @@ func TestGzipMiddleware_SendGzip(t *testing.T) {
 				acceptEncoding:  "",
 				contentEncoding: "gzip",
 				contentType:     "application/json",
-				handler:         GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
+				handler:         middlewares.GzipMiddleware(http.HandlerFunc(webhookJSONWithBody)),
 				body:            buf,
 			},
 			want: want{

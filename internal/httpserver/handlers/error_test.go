@@ -1,10 +1,11 @@
-package handlers
+package handlers_test
 
 import (
 	"errors"
 	"fmt"
 	"testing"
 
+	"github.com/ole-larsen/green-api/internal/httpserver/handlers"
 	"github.com/stretchr/testify/require"
 )
 
@@ -42,7 +43,7 @@ func TestNewError(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := NewError(tt.args.err)
+			err := handlers.NewError(tt.args.err)
 			if tt.args.err == nil {
 				require.Nil(t, err)
 			} else {

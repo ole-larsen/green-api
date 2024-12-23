@@ -1,4 +1,4 @@
-package handlers
+package handlers_test
 
 import (
 	"io"
@@ -6,6 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/ole-larsen/green-api/internal/httpserver/handlers"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -34,7 +35,7 @@ func TestStatusHandler(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			request := httptest.NewRequest(http.MethodGet, "/status", http.NoBody)
 			w := httptest.NewRecorder()
-			StatusHandler(w, request)
+			handlers.StatusHandler(w, request)
 
 			resp := w.Result()
 			// проверяем код ответа
@@ -57,7 +58,7 @@ func TestStatusHandler(t *testing.T) {
 func ExampleStatusHandler() {
 	request := httptest.NewRequest(http.MethodGet, "/status", http.NoBody)
 	w := httptest.NewRecorder()
-	StatusHandler(w, request)
+	handlers.StatusHandler(w, request)
 
 	resp := w.Result()
 
@@ -91,7 +92,7 @@ func TestBadRequestHandler(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			request := httptest.NewRequest(http.MethodGet, "/status", http.NoBody)
 			w := httptest.NewRecorder()
-			BadRequest(w, request)
+			handlers.BadRequest(w, request)
 
 			resp := w.Result()
 			// проверяем код ответа
@@ -135,7 +136,7 @@ func TestNotFoundHandler(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			request := httptest.NewRequest(http.MethodGet, "/status", http.NoBody)
 			w := httptest.NewRecorder()
-			NotFoundRequest(w, request)
+			handlers.NotFoundRequest(w, request)
 
 			resp := w.Result()
 			// проверяем код ответа
@@ -179,7 +180,7 @@ func TestNotAllowedRequestHandler(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			request := httptest.NewRequest(http.MethodGet, "/status", http.NoBody)
 			w := httptest.NewRecorder()
-			NotAllowedRequest(w, request)
+			handlers.NotAllowedRequest(w, request)
 
 			resp := w.Result()
 			// проверяем код ответа
@@ -223,7 +224,7 @@ func TestInternalServerErrorHandler(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			request := httptest.NewRequest(http.MethodGet, "/status", http.NoBody)
 			w := httptest.NewRecorder()
-			InternalServerErrorRequest(w, request)
+			handlers.InternalServerErrorRequest(w, request)
 
 			resp := w.Result()
 			// проверяем код ответа

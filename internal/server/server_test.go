@@ -250,7 +250,6 @@ func TestServer_Setup_Success(t *testing.T) {
 }
 
 func TestServer_Run(t *testing.T) {
-
 	// Create a new server instance
 	srv := server.NewServer()
 

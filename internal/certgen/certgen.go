@@ -119,5 +119,6 @@ func GenerateCerts(dirName string) error {
 	}
 
 	fmt.Println("Certificates and key generated successfully in the " + dirName + "/ folder")
+
 	return nil
 }

@@ -34,7 +34,6 @@ func (m *Mux) SetMiddlewares() *Mux {
 }
 
 func (m *Mux) SetHandlers() *Mux {
-
 	m.Router.Get("/", handlers.HTMLHandler(make(chan struct{})))
 
 	m.Router.Get("/status", handlers.StatusHandler)

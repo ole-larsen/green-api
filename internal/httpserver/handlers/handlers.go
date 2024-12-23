@@ -59,7 +59,7 @@ func InternalServerErrorRequest(rw http.ResponseWriter, _ *http.Request) {
 
 // HTMLHandler godoc
 // @Tags Html
-// @Summary показ 
+// @Summary показ
 // @Description показ
 // @ID html
 // @Produce text/html; charset=utf-8
@@ -67,12 +67,12 @@ func InternalServerErrorRequest(rw http.ResponseWriter, _ *http.Request) {
 // @Failure 404 {string} string "404 page not found"
 // @Failure 500 {string} string "500 internal server error"
 // @Router / [get].
-func HTMLHandler(done chan struct{}) http.HandlerFunc {
+func HTMLHandler(_ chan struct{}) http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
-		getSettingsUrl := httpclient.ApiURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
-		getStateInstanceUrl := httpclient.ApiURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
-		postMessageUrl := httpclient.ApiURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
-		postFileUrl := httpclient.ApiURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
+		getSettingsURL := httpclient.APIURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
+		getStateInstanceURL := httpclient.APIURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
+		postMessageURL := httpclient.APIURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
+		postFileURL := httpclient.APIURL + "/waInstance{{idInstance}}/{{method}}/{{apiTokenInstance}}"
 
 		template := `<!DOCTYPE html>
 <html lang="en">
@@ -222,7 +222,7 @@ func HTMLHandler(done chan struct{}) http.HandlerFunc {
 				return;
 			}
 			
-			const getSettingsUrl = '` + getSettingsUrl + `'
+			const getSettingsUrl = '` + getSettingsURL + `'
 				.replace("{{idInstance}}", idInstance)
 				.replace("{{method}}", "getSettings")
 				.replace("{{apiTokenInstance}}", apiTokenInstance);
@@ -247,7 +247,7 @@ func HTMLHandler(done chan struct{}) http.HandlerFunc {
 				return;
 			}
 			
-			const getStateInstance = '` + getStateInstanceUrl + `'
+			const getStateInstance = '` + getStateInstanceURL + `'
 				.replace("{{idInstance}}", idInstance)
 				.replace("{{method}}", "getStateInstance")
 				.replace("{{apiTokenInstance}}", apiTokenInstance);
@@ -273,7 +273,7 @@ func HTMLHandler(done chan struct{}) http.HandlerFunc {
 				return;
 			}
 			
-			const sendMessageUrl = '` + postMessageUrl + `'
+			const sendMessageUrl = '` + postMessageURL + `'
 				.replace("{{idInstance}}", idInstance)
 				.replace("{{method}}", "sendMessage")
 				.replace("{{apiTokenInstance}}", apiTokenInstance);
@@ -305,7 +305,7 @@ func HTMLHandler(done chan struct{}) http.HandlerFunc {
 				return;
 			}
 			
-			const sendFileUrl = '` + postFileUrl + `'
+			const sendFileUrl = '` + postFileURL + `'
 				.replace("{{idInstance}}", idInstance)
 				.replace("{{method}}", "sendFileByUrl")
 				.replace("{{apiTokenInstance}}", apiTokenInstance);

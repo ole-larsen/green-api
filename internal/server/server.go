@@ -39,7 +39,7 @@ var SetupFunc = Setup
 
 // Setup initializes the server with provided configuration settings and sets up
 // storage. Returns an error if initialization fails.
-func Setup(ctx context.Context, settings *config.Config) (*Server, error) {
+func Setup(_ context.Context, settings *config.Config) (*Server, error) {
 	s := NewServer()
 
 	if err := s.Init(settings, make(chan os.Signal, 1), make(chan struct{})); err != nil {
