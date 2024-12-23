@@ -10,4 +10,4 @@ This project is a simple HTML interface for interacting with the GREEN-API. It a
 
 ## build
 ```
-go build -o green-api cmd/main.go
+go build -o green-api cmd/server/main.go
